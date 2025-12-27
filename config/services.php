@@ -33,7 +33,7 @@ return [
 
     'kavenegar' => [
         'api_key' => env('KAVENEGAR_API_KEY'),
-        'template' => env('KAVENEGAR_TEMPLATE', 'otp'),
+        'template' => env('KAVENEGAR_TEMPLATE', 'hamtayar-otp'),
     ],
 
 ];

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReceptorAuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ReceptorController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,13 +13,8 @@ use Illuminate\Support\Facades\Route;
 | API Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'Laravel API is working!',
-        'status' => 'success'
-    ]);
-});
+ 
+ 
 
 // ========== Receptor Authentication (JWT) ==========
 Route::post('/get_token', [ReceptorAuthController::class, 'getToken']);
@@ -44,4 +40,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Receptor Management (super_admin & operator only)
     Route::apiResource('receptors', ReceptorController::class);
+
+    // Order Management (super_admin & operator only)
+    Route::get('/orders/receptors', [OrderController::class, 'getReceptorsForOrders']);
+    Route::post('/orders/check/{receptorId}', [OrderController::class, 'checkOrders']);
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::post('/orders/search', [OrderController::class, 'search']);
 });
